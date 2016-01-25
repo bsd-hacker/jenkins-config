@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.checkssh.SshProcessManager_-DescriptorImpl plugin="terminate-ssh-processes-plugin@1.0">
+  <sshManager>
+    <userName></userName>
+  </sshManager>
+</org.jenkinsci.plugins.checkssh.SshProcessManager_-DescriptorImpl>

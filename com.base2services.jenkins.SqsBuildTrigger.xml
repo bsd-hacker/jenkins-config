@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.base2services.jenkins.SqsBuildTrigger_-DescriptorImpl plugin="github-sqs-plugin@1.5">
+  <manageHook>true</manageHook>
+  <sqsProfiles>
+    <com.base2services.jenkins.SqsProfile>
+      <awsAccessKeyId></awsAccessKeyId>
+      <awsSecretAccessKey>rpjFBcnH4svLXfRjCmeZjw==</awsSecretAccessKey>
+      <sqsQueue></sqsQueue>
+      <urlSpecified>false</urlSpecified>
+    </com.base2services.jenkins.SqsProfile>
+  </sqsProfiles>
+  <credentials>
+    <com.base2services.jenkins.Credential>
+      <username></username>
+      <password>rpjFBcnH4svLXfRjCmeZjw==</password>
+    </com.base2services.jenkins.Credential>
+  </credentials>
+</com.base2services.jenkins.SqsBuildTrigger_-DescriptorImpl>

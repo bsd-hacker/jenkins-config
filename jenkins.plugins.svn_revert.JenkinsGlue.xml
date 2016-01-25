@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.svn__revert.JenkinsGlue_-SvnRevertDescriptorImpl plugin="svn-revert-plugin@1.3">
+  <revertMultipleCommits>true</revertMultipleCommits>
+</jenkins.plugins.svn__revert.JenkinsGlue_-SvnRevertDescriptorImpl>

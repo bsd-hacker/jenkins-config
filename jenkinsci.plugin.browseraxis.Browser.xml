@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkinsci.plugin.browseraxis.Browser_-DescriptorImpl plugin="browser-axis-plugin@1.0">
+  <browsers class="tree-map"/>
+  <slaveLabels class="tree-map">
+    <entry>
+      <string>Jenkins</string>
+      <sorted-set/>
+    </entry>
+    <entry>
+      <string>jenkins-00.os-hackers.jp</string>
+      <sorted-set/>
+    </entry>
+    <entry>
+      <string>jenkins00.os-hackers.jp</string>
+      <sorted-set/>
+    </entry>
+  </slaveLabels>
+</jenkinsci.plugin.browseraxis.Browser_-DescriptorImpl>

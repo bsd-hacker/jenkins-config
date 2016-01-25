@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.6">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl plugin="html5-notifier-plugin@1.5">
+      <skip>false</skip>
+    </org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+    <com.synopsys.arc.jenkinsci.plugins.jobrestrictions.jobs.JobRestrictionProperty plugin="job-restrictions@0.4"/>
+    <job-metadata plugin="metadata@1.1.0b">
+      <values class="linked-list">
+        <metadata-tree>
+          <name>job-info</name>
+          <parent class="job-metadata" reference="../../.."/>
+          <generated>true</generated>
+          <exposedToEnvironment>false</exposedToEnvironment>
+          <children class="linked-list">
+            <metadata-tree>
+              <name>last-saved</name>
+              <description></description>
+              <parent class="metadata-tree" reference="../../.."/>
+              <generated>true</generated>
+              <exposedToEnvironment>false</exposedToEnvironment>
+              <children class="linked-list">
+                <metadata-date>
+                  <name>time</name>
+                  <description></description>
+                  <parent class="metadata-tree" reference="../../.."/>
+                  <generated>true</generated>
+                  <exposedToEnvironment>false</exposedToEnvironment>
+                  <value>
+                    <time>1451097112140</time>
+                    <timezone>Asia/Tokyo</timezone>
+                  </value>
+                  <checked>false</checked>
+                </metadata-date>
+                <metadata-tree>
+                  <name>user</name>
+                  <parent class="metadata-tree" reference="../../.."/>
+                  <generated>true</generated>
+                  <exposedToEnvironment>false</exposedToEnvironment>
+                  <children class="linked-list">
+                    <metadata-string>
+                      <name>display-name</name>
+                      <description></description>
+                      <parent class="metadata-tree" reference="../../.."/>
+                      <generated>true</generated>
+                      <exposedToEnvironment>false</exposedToEnvironment>
+                      <value>unknown</value>
+                    </metadata-string>
+                    <metadata-string>
+                      <name>full-name</name>
+                      <description></description>
+                      <parent class="metadata-tree" reference="../../.."/>
+                      <generated>true</generated>
+                      <exposedToEnvironment>false</exposedToEnvironment>
+                      <value>unknown</value>
+                    </metadata-string>
+                  </children>
+                </metadata-tree>
+              </children>
+            </metadata-tree>
+          </children>
+        </metadata-tree>
+      </values>
+    </job-metadata>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/bsd-hacker/freebsd.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/shigeru_work</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>src</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>false</shallow>
+        <reference></reference>
+        <timeout>86400</timeout>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>TARGET_CONF</name>
+      <values>
+        <string>RPI-B</string>
+        <string>RPI2</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>VIMAGE</name>
+      <values>
+        <string>NO</string>
+        <string>YES</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>WITNESS</name>
+      <values>
+        <string>NO</string>
+        <string>YES</string>
+      </values>
+    </hudson.matrix.TextAxis>
+  </axes>
+  <builders>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info/>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>if [ -d freebsd-release-conf ]; then
+	cd freebsd-release-conf
+    git pull
+else
+	git clone https://github.com/bsd-hacker/freebsd-release-conf.git
+fi
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>RELENG_TOP=/releng/`basename ${JOB_NAME} | sed -e &apos;s#,#/#g&apos;`
+
+sudo -E mkdir -p ${RELENG_TOP}
+sudo -E rm -fr ${RELENG_TOP}/R/CHECKSUM.*
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd src/release
+pwd
+printenv
+
+if [ &quot;X${VIMAGE}&quot; != &quot;XYES&quot; ]; then
+	use_vimage=&quot;&quot;;
+else
+	use_vimage=&quot;-VIMAGE&quot;;
+fi
+
+if [ &quot;X${WITNESS}&quot; != &quot;XYES&quot; ]; then
+	use_vimage=&quot;&quot;;
+else
+	use_vimage=&quot;-WITNESS&quot;;
+fi
+
+ls -l ${WORKSPACE}/src/sys/arm/conf/${TARGET_CONF}${use_vimage}${use_witness}
+
+RELENG_TOP=/releng/`basename ${JOB_NAME} | sed -e &apos;s#,#/#g&apos;`
+
+if [ -x ${RELENG_TOP}/usr/sbin/pkg ]; then
+	ASSUME_ALWAYS_YES=yes sudo -E /usr/sbin/chroot ${RELENG_TOP} pkg upgrade pkg
+	ASSUME_ALWAYS_YES=yes sudo -E /usr/sbin/chroot ${RELENG_TOP} pkg upgrade
+fi
+
+sudo -E /bin/sh -x ./release.sh -c ${WORKSPACE}/freebsd-release-conf/${TARGET_CONF}-release.conf</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>true</runSequentially>
+    <sorter class="hudson.matrix.NoopMatrixConfigurationSorter"/>
+  </executionStrategy>
+</matrix-project>

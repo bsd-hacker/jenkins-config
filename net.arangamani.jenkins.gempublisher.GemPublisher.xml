@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<net.arangamani.jenkins.gempublisher.GemPublisher_-GemDescriptor plugin="gem-publisher@1.0">
+  <creds>
+    <key></key>
+  </creds>
+</net.arangamani.jenkins.gempublisher.GemPublisher_-GemDescriptor>

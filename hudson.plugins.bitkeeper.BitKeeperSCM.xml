@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.bitkeeper.BitKeeperSCM_-DescriptorImpl plugin="bitkeeper@1.8">
+  <generation>1</generation>
+  <bkExe>bk</bkExe>
+</hudson.plugins.bitkeeper.BitKeeperSCM_-DescriptorImpl>

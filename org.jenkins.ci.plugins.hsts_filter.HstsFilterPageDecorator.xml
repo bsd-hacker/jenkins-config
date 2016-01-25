@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkins.ci.plugins.hsts__filter.HstsFilterPageDecorator plugin="hsts-filter-plugin@1.0">
+  <sendHeader>true</sendHeader>
+  <maxAge>31536000</maxAge>
+  <includeSubDomains>true</includeSubDomains>
+</org.jenkins.ci.plugins.hsts__filter.HstsFilterPageDecorator>

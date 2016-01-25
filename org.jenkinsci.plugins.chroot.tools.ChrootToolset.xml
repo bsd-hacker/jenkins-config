@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.chroot.tools.ChrootToolset_-DescriptorImpl plugin="chroot@0.1.4">
+  <installations/>
+</org.jenkinsci.plugins.chroot.tools.ChrootToolset_-DescriptorImpl>
